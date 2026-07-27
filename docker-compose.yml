@@ -1,0 +1,14 @@
+services:
+  netmon:
+    build: .
+    container_name: netmon
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./arp_table.json:/shared/arp_table.json:ro
+    environment:
+      - NETMON_SCAN_INTERVAL=30
+      - NETMON_SCAN_TYPE=auto
+      - NETMON_SUBNET=192.168.31.0/24
+      - ARP_FILE=/shared/arp_table.json
+    restart: unless-stopped
